@@ -64,7 +64,7 @@ public class VayTienJDialog extends javax.swing.JDialog {
         jScrollPane3.setViewportView(txtDiachi);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("EduSys - Quản lý người học");
+        setTitle("VAY TIỀN - TRẢ GÓP");
 
         lblMaVay.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblMaVay.setText("Mã vay:");

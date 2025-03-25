@@ -64,7 +64,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         tblNhanVien = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nhân Vien");
+        setTitle("Nhân Viên");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 255));

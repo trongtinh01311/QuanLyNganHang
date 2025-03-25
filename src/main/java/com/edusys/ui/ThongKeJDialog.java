@@ -4,6 +4,8 @@
  */
 package com.edusys.ui;
 
+import com.edusys.dao.ThongKeDAO;
+
 
 /**
  *
@@ -500,7 +502,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     private javax.swing.JTable tblVayTien;
     // End of variables declaration//GEN-END:variables
 
-    
+    ThongKeDAO dao = new ThongKeDAO();
     void init(){
         this.setLocationRelativeTo(null);       
     }

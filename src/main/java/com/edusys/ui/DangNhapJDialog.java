@@ -55,14 +55,14 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         lblTenDangNhap.setForeground(new java.awt.Color(255, 51, 51));
         lblTenDangNhap.setText("Tên đăng nhập");
 
-        txtMaNV.setText("Faker");
+        txtMaNV.setText("NV001");
         txtMaNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaNVActionPerformed(evt);
             }
         });
 
-        txtMatKhau.setText("goat");
+        txtMatKhau.setText("an4321");
         txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMatKhauActionPerformed(evt);

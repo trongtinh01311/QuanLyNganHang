@@ -698,7 +698,7 @@ public class MainJFrame extends javax.swing.JFrame {
     
     void openHuongDan(){
         try {
-            Desktop.getDesktop().browse(new File("").toURI()); //chỗ chứa đường dẫn trang web
+            Desktop.getDesktop().browse(new File("src/main/resources/help/index.html").toURI()); //chỗ chứa đường dẫn trang web
         } catch (IOException e) {
             MsgBox.alert(this, "Không tìm thấy file đường dẫn");
         }

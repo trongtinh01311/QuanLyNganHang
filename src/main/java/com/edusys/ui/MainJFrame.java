@@ -72,8 +72,8 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuThongKe = new javax.swing.JMenu();
         mniThongKeKhachHang = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        mniThongKeTaiKhoan = new javax.swing.JMenuItem();
         mniThongKeGiaoDich = new javax.swing.JMenuItem();
+        mniThongKeTaiKhoan = new javax.swing.JMenuItem();
         mniThongKeVayTien = new javax.swing.JMenuItem();
         mnuTroGiup = new javax.swing.JMenu();
         mniHuongDan = new javax.swing.JMenuItem();
@@ -196,6 +196,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNganHang\\GiaoDichNganHang\\src\\main\\resources\\icon\\A.jpg")); // NOI18N
+        lblLogo.setOpaque(true);
         lblLogo.setRequestFocusEnabled(false);
 
         mnuHeThong.setText("Hệ thống");
@@ -322,16 +323,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuThongKe.add(mniThongKeKhachHang);
         mnuThongKe.add(jSeparator3);
 
-        mniThongKeTaiKhoan.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
-        mniThongKeTaiKhoan.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNganHang\\GiaoDichNganHang\\src\\main\\resources\\icon\\taikhoan.png")); // NOI18N
-        mniThongKeTaiKhoan.setText("Tài khoản");
-        mniThongKeTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniThongKeTaiKhoanActionPerformed(evt);
-            }
-        });
-        mnuThongKe.add(mniThongKeTaiKhoan);
-
         mniThongKeGiaoDich.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         mniThongKeGiaoDich.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNganHang\\GiaoDichNganHang\\src\\main\\resources\\icon\\chuyentien.png")); // NOI18N
         mniThongKeGiaoDich.setText("Giao dịch");
@@ -341,6 +332,16 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
         mnuThongKe.add(mniThongKeGiaoDich);
+
+        mniThongKeTaiKhoan.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
+        mniThongKeTaiKhoan.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNganHang\\GiaoDichNganHang\\src\\main\\resources\\icon\\taikhoan.png")); // NOI18N
+        mniThongKeTaiKhoan.setText("Tài khoản");
+        mniThongKeTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniThongKeTaiKhoanActionPerformed(evt);
+            }
+        });
+        mnuThongKe.add(mniThongKeTaiKhoan);
 
         mniThongKeVayTien.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         mniThongKeVayTien.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNganHang\\GiaoDichNganHang\\src\\main\\resources\\icon\\vaytien41.png")); // NOI18N
@@ -464,7 +465,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void mniThongKeTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThongKeTaiKhoanActionPerformed
         // TODO add your handling code here:
-        this.openThongKe(1);
+        this.openThongKe(2);
     }//GEN-LAST:event_mniThongKeTaiKhoanActionPerformed
 
     private void mniThongKeKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThongKeKhachHangActionPerformed
@@ -474,7 +475,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void mniThongKeGiaoDichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThongKeGiaoDichActionPerformed
         // TODO add your handling code here:
-        this.openThongKe(2);
+        this.openThongKe(1);
     }//GEN-LAST:event_mniThongKeGiaoDichActionPerformed
 
     private void mniThongKeVayTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThongKeVayTienActionPerformed

@@ -5,6 +5,10 @@
 package com.edusys.ui;
 
 import com.edusys.dao.ThongKeDAO;
+import com.edusys.utils.MsgBox;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -35,10 +39,10 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         tabs = new javax.swing.JTabbedPane();
         pnlKhachHang = new javax.swing.JPanel();
         lblThongKeKhachHang = new javax.swing.JLabel();
-        cboNam1 = new javax.swing.JComboBox<>();
+        cboNamKH = new javax.swing.JComboBox<>();
         lblThang1 = new javax.swing.JLabel();
         lblNam1 = new javax.swing.JLabel();
-        cboThang1 = new javax.swing.JComboBox<>();
+        cboThangKH = new javax.swing.JComboBox<>();
         lblTongSoKH2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblThongKeKhachHang = new javax.swing.JTable();
@@ -46,17 +50,17 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         pnlGiaoDich = new javax.swing.JPanel();
         lblThongKeGiaoDich = new javax.swing.JLabel();
         lblThang2 = new javax.swing.JLabel();
-        cboThang2 = new javax.swing.JComboBox<>();
+        cboThangGD = new javax.swing.JComboBox<>();
         lblNam2 = new javax.swing.JLabel();
-        cboNam2 = new javax.swing.JComboBox<>();
+        cboNamGD = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblThongKeGiaoDich = new javax.swing.JTable();
         btnExportExcelGD = new javax.swing.JButton();
         pnlTaiKhoan = new javax.swing.JPanel();
         lblThang3 = new javax.swing.JLabel();
-        cboThang3 = new javax.swing.JComboBox<>();
+        cboThangTK = new javax.swing.JComboBox<>();
         lblNam3 = new javax.swing.JLabel();
-        cboNam3 = new javax.swing.JComboBox<>();
+        cboNamTK = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblThongKeTaiKhoan = new javax.swing.JTable();
         lblThongKeGiaoDich1 = new javax.swing.JLabel();
@@ -64,11 +68,11 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         pnlVayTien = new javax.swing.JPanel();
         lblThongKeVayTien = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblVayTien = new javax.swing.JTable();
+        tblThongKeVayTien = new javax.swing.JTable();
         lblThang4 = new javax.swing.JLabel();
-        cboThang4 = new javax.swing.JComboBox<>();
+        cboThangVT = new javax.swing.JComboBox<>();
         lblNam4 = new javax.swing.JLabel();
-        cboNam4 = new javax.swing.JComboBox<>();
+        cboNamVT = new javax.swing.JComboBox<>();
         btnExportExcelVT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -78,13 +82,22 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         lblThongKeKhachHang.setForeground(new java.awt.Color(51, 51, 255));
         lblThongKeKhachHang.setText("THỐNG KÊ KHÁCH HÀNG");
 
-        cboNam1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2025", " " }));
+        cboNamKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboNamKHActionPerformed(evt);
+            }
+        });
 
         lblThang1.setText("Tháng:");
 
         lblNam1.setText("Năm:");
 
-        cboThang1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
+        cboThangKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
+        cboThangKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboThangKHActionPerformed(evt);
+            }
+        });
 
         tblThongKeKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,11 +139,11 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                                     .addGroup(pnlKhachHangLayout.createSequentialGroup()
                                         .addComponent(lblThang1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(38, 38, 38)
-                                        .addComponent(cboThang1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cboThangKH, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(72, 72, 72)
                                         .addComponent(lblNam1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(31, 31, 31)
-                                        .addComponent(cboNam1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(cboNamKH, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(pnlKhachHangLayout.createSequentialGroup()
                                 .addGap(217, 217, 217)
                                 .addComponent(lblThongKeKhachHang)))
@@ -147,10 +160,10 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 .addComponent(lblThongKeKhachHang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(pnlKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboNam1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboNamKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblThang1)
                     .addComponent(lblNam1)
-                    .addComponent(cboThang1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboThangKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTongSoKH2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -168,11 +181,21 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         lblThang2.setText("Tháng:");
 
-        cboThang2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
+        cboThangGD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
+        cboThangGD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboThangGDActionPerformed(evt);
+            }
+        });
 
         lblNam2.setText("Năm:");
 
-        cboNam2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2025", " " }));
+        cboNamGD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cboNamGD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboNamGDActionPerformed(evt);
+            }
+        });
 
         tblThongKeGiaoDich.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,11 +230,11 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                             .addGroup(pnlGiaoDichLayout.createSequentialGroup()
                                 .addComponent(lblThang2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
-                                .addComponent(cboThang2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboThangGD, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(72, 72, 72)
                                 .addComponent(lblNam2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
-                                .addComponent(cboNam2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboNamGD, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 119, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlGiaoDichLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -229,10 +252,10 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 .addComponent(lblThongKeGiaoDich)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlGiaoDichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboNam2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboNamGD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblThang2)
                     .addComponent(lblNam2)
-                    .addComponent(cboThang2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboThangGD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -244,11 +267,20 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         lblThang3.setText("Tháng:");
 
-        cboThang3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
+        cboThangTK.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
+        cboThangTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboThangTKActionPerformed(evt);
+            }
+        });
 
         lblNam3.setText("Năm:");
 
-        cboNam3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2025", " " }));
+        cboNamTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboNamTKActionPerformed(evt);
+            }
+        });
 
         tblThongKeTaiKhoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -288,11 +320,11 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                             .addGroup(pnlTaiKhoanLayout.createSequentialGroup()
                                 .addComponent(lblThang3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
-                                .addComponent(cboThang3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboThangTK, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(72, 72, 72)
                                 .addComponent(lblNam3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
-                                .addComponent(cboNam3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboNamTK, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 119, Short.MAX_VALUE))
                             .addComponent(jScrollPane4))))
                 .addGap(15, 15, 15))
@@ -304,10 +336,10 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 .addComponent(lblThongKeGiaoDich1)
                 .addGap(15, 15, 15)
                 .addGroup(pnlTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboNam3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboNamTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblThang3)
                     .addComponent(lblNam3)
-                    .addComponent(cboThang3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboThangTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,7 +353,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         lblThongKeVayTien.setForeground(new java.awt.Color(51, 51, 255));
         lblThongKeVayTien.setText("THỐNG KÊ VAY TIỀN");
 
-        tblVayTien.setModel(new javax.swing.table.DefaultTableModel(
+        tblThongKeVayTien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -332,15 +364,25 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 "MÃ VAY", "MÃ KH", "HỌ TÊN", "SỐ TIỀN VAY", "LÃI SUẤT", "THỜI GIAN VAY", "NGÀY VAY", "TRẠNG THÁI"
             }
         ));
-        jScrollPane3.setViewportView(tblVayTien);
+        jScrollPane3.setViewportView(tblThongKeVayTien);
 
         lblThang4.setText("Tháng:");
 
-        cboThang4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
+        cboThangVT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
+        cboThangVT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboThangVTActionPerformed(evt);
+            }
+        });
 
         lblNam4.setText("Năm:");
 
-        cboNam4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2025", " " }));
+        cboNamVT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cboNamVT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboNamVTActionPerformed(evt);
+            }
+        });
 
         btnExportExcelVT.setText("Export to Excel");
 
@@ -359,11 +401,11 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                                 .addGap(15, 15, 15)
                                 .addComponent(lblThang4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
-                                .addComponent(cboThang4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboThangVT, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(72, 72, 72)
                                 .addComponent(lblNam4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
-                                .addComponent(cboNam4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cboNamVT, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 119, Short.MAX_VALUE))
                     .addGroup(pnlVayTienLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
@@ -380,10 +422,10 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 .addComponent(lblThongKeVayTien)
                 .addGap(15, 15, 15)
                 .addGroup(pnlVayTienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboNam4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboNamVT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblThang4)
                     .addComponent(lblNam4)
-                    .addComponent(cboThang4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboThangVT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -414,6 +456,46 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     private void btnExportExcelGDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExcelGDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExportExcelGDActionPerformed
+
+    private void cboThangKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThangKHActionPerformed
+        // TODO add your handling code here:
+        this.fillTableKhachHang();
+    }//GEN-LAST:event_cboThangKHActionPerformed
+
+    private void cboNamKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNamKHActionPerformed
+        // TODO add your handling code here:
+        this.fillTableKhachHang();
+    }//GEN-LAST:event_cboNamKHActionPerformed
+
+    private void cboThangGDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThangGDActionPerformed
+        // TODO add your handling code here:
+        this.fillTableGiaoDich();
+    }//GEN-LAST:event_cboThangGDActionPerformed
+
+    private void cboNamGDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNamGDActionPerformed
+        // TODO add your handling code here:
+        this.fillTableGiaoDich();
+    }//GEN-LAST:event_cboNamGDActionPerformed
+
+    private void cboThangTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThangTKActionPerformed
+        // TODO add your handling code here:
+        this.fillTableTaiKhoan();
+    }//GEN-LAST:event_cboThangTKActionPerformed
+
+    private void cboNamTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNamTKActionPerformed
+        // TODO add your handling code here:
+        this.fillTableTaiKhoan();
+    }//GEN-LAST:event_cboNamTKActionPerformed
+
+    private void cboThangVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThangVTActionPerformed
+        // TODO add your handling code here:
+        this.fillTableVayTien();
+    }//GEN-LAST:event_cboThangVTActionPerformed
+
+    private void cboNamVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNamVTActionPerformed
+        // TODO add your handling code here:
+        this.fillTableVayTien();
+    }//GEN-LAST:event_cboNamVTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -465,14 +547,14 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnExportExcelKH;
     private javax.swing.JButton btnExportExcelTK;
     private javax.swing.JButton btnExportExcelVT;
-    private javax.swing.JComboBox<String> cboNam1;
-    private javax.swing.JComboBox<String> cboNam2;
-    private javax.swing.JComboBox<String> cboNam3;
-    private javax.swing.JComboBox<String> cboNam4;
-    private javax.swing.JComboBox<String> cboThang1;
-    private javax.swing.JComboBox<String> cboThang2;
-    private javax.swing.JComboBox<String> cboThang3;
-    private javax.swing.JComboBox<String> cboThang4;
+    private javax.swing.JComboBox<String> cboNamGD;
+    private javax.swing.JComboBox<String> cboNamKH;
+    private javax.swing.JComboBox<String> cboNamTK;
+    private javax.swing.JComboBox<String> cboNamVT;
+    private javax.swing.JComboBox<String> cboThangGD;
+    private javax.swing.JComboBox<String> cboThangKH;
+    private javax.swing.JComboBox<String> cboThangTK;
+    private javax.swing.JComboBox<String> cboThangVT;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -499,15 +581,121 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     private javax.swing.JTable tblThongKeGiaoDich;
     private javax.swing.JTable tblThongKeKhachHang;
     private javax.swing.JTable tblThongKeTaiKhoan;
-    private javax.swing.JTable tblVayTien;
+    private javax.swing.JTable tblThongKeVayTien;
     // End of variables declaration//GEN-END:variables
 
     ThongKeDAO dao = new ThongKeDAO();
     void init(){
-        this.setLocationRelativeTo(null);       
+        this.setLocationRelativeTo(null); 
+        
+        this.fillComboBoxNamKH();
+        this.fillComboBoxNamGD();
+        this.fillComboBoxNamTK();
+        this.fillComboBoxNamVT();
+        
+        this.fillTableKhachHang();
+        this.fillTableGiaoDich();
+        this.fillTableTaiKhoan();
+        this.fillTableVayTien();
     }
     
     public void selectTab(int index){
         tabs.setSelectedIndex(index);
+    }
+    //lấy năm
+    void fillComboBoxNamKH(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboNamKH.getModel();
+        model.removeAllElements();
+        List<Integer> list = dao.selectYearsKhachHang();
+        for(Integer year : list){
+            model.addElement(year);
+        }
+    }
+    
+    void fillTableKhachHang() {
+        DefaultTableModel model = (DefaultTableModel) tblThongKeKhachHang.getModel();
+        model.setRowCount(0);
+        // Kiểm tra nếu chưa chọn năm hoặc tháng
+        if (cboNamKH.getSelectedItem() == null || cboThangKH.getSelectedItem() == null) {
+            return;
+        }
+        int nam = (Integer) cboNamKH.getSelectedItem();
+        int thang = Integer.parseInt((String) cboThangKH.getSelectedItem());
+        List<Object[]> list = dao.getThongKeKhachHang(thang, nam);
+        for(Object[] row : list){
+            model.addRow(row);
+        }
+    }
+    
+    void fillComboBoxNamGD(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboNamGD.getModel();
+        model.removeAllElements();
+        List<Integer> list = dao.selectYearsGiaoDich();
+        for(Integer year : list){
+            model.addElement(year);
+        }
+    }
+    
+    void fillTableGiaoDich() {
+        DefaultTableModel model = (DefaultTableModel) tblThongKeGiaoDich.getModel();
+        model.setRowCount(0);
+        // Kiểm tra nếu chưa chọn năm hoặc tháng
+        if (cboNamGD.getSelectedItem() == null || cboThangGD.getSelectedItem() == null) {
+            return;
+        }
+        int nam = (Integer) cboNamGD.getSelectedItem();
+        int thang = Integer.parseInt((String) cboThangGD.getSelectedItem());
+        List<Object[]> list = dao.getThongKeGiaoDich(thang, nam);
+        for(Object[] row : list){
+            model.addRow(row);
+        }
+    }
+    
+    void fillComboBoxNamTK(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboNamTK.getModel();
+        model.removeAllElements();
+        List<Integer> list = dao.selectYearsTaiKhoan();
+        for(Integer year : list){
+            model.addElement(year);
+        }
+    }
+    
+    void fillTableTaiKhoan() {
+        DefaultTableModel model = (DefaultTableModel) tblThongKeTaiKhoan.getModel();
+        model.setRowCount(0);
+        // Kiểm tra nếu chưa chọn năm hoặc tháng
+        if (cboNamTK.getSelectedItem() == null || cboThangTK.getSelectedItem() == null) {
+            return;
+        }
+        int nam = (Integer) cboNamTK.getSelectedItem();
+        int thang = Integer.parseInt((String) cboThangTK.getSelectedItem());
+        List<Object[]> list = dao.getThongKeTaiKhoan(thang, nam);
+        for(Object[] row : list){
+            model.addRow(row);
+        }
+    }
+    
+    void fillComboBoxNamVT(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboNamVT.getModel();
+        model.removeAllElements();
+        List<Integer> list = dao.selectYearsVayTien();
+        for(Integer year : list){
+            model.addElement(year);
+        }
+    }
+    
+    void fillTableVayTien() {
+        DefaultTableModel model = (DefaultTableModel) tblThongKeVayTien.getModel();
+        model.setRowCount(0);
+        // Kiểm tra nếu chưa chọn năm hoặc tháng
+        if (cboNamVT.getSelectedItem() == null || cboThangVT.getSelectedItem() == null) {
+            return;
+        }
+        int nam = (Integer) cboNamVT.getSelectedItem();
+        int thang = Integer.parseInt((String) cboThangVT.getSelectedItem());
+        List<Object[]> list = dao.getThongKeVayTien(thang, nam);
+        for(Object[] row : list){
+            model.addRow(row);
+        }
     }
 }

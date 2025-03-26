@@ -263,7 +263,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         }
         
         // Nếu không tìm thấy tài khoản
-        MsgBox.alert(this, "Sai tên đăng nhập!");
+        MsgBox.alert(this, "Sai mã đăng nhập!");
     }
     
     void ketThuc(){

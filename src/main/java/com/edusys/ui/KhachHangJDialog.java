@@ -268,7 +268,7 @@ public class KhachHangJDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Thông tin", jPanel1);
+        jTabbedPane1.addTab("THÔNG TIN", jPanel1);
 
         tblThongKeKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -301,7 +301,7 @@ public class KhachHangJDialog extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Danh sách", jPanel2);
+        jTabbedPane1.addTab("DANH SÁCH", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

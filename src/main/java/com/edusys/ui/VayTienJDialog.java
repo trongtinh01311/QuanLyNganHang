@@ -180,7 +180,7 @@ public class VayTienJDialog extends javax.swing.JDialog {
                 .addGap(8, 8, 8))
         );
 
-        tabs.addTab("Vay Tiền", PnlVayTien);
+        tabs.addTab("VAY TIỀN", PnlVayTien);
 
         lblMatra.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblMatra.setText("Mã trả:");
@@ -260,7 +260,7 @@ public class VayTienJDialog extends javax.swing.JDialog {
                 .addContainerGap(110, Short.MAX_VALUE))
         );
 
-        tabs.addTab("Trả Góp", PnlTraGop);
+        tabs.addTab("TRẢ GÓP", PnlTraGop);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

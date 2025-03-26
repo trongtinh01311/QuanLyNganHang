@@ -62,8 +62,8 @@
         <Container class="javax.swing.JPanel" name="PnlVayTien">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Vay Ti&#x1ec1;n">
-                <Property name="tabTitle" type="java.lang.String" value="Vay Ti&#x1ec1;n"/>
+              <JTabbedPaneConstraints tabName="VAY TI&#x1ec0;N">
+                <Property name="tabTitle" type="java.lang.String" value="VAY TI&#x1ec0;N"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -309,8 +309,8 @@
         <Container class="javax.swing.JPanel" name="PnlTraGop">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Tr&#x1ea3; G&#xf3;p">
-                <Property name="tabTitle" type="java.lang.String" value="Tr&#x1ea3; G&#xf3;p"/>
+              <JTabbedPaneConstraints tabName="TR&#x1ea2; G&#xd3;P">
+                <Property name="tabTitle" type="java.lang.String" value="TR&#x1ea2; G&#xd3;P"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

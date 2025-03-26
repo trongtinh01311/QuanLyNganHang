@@ -24,7 +24,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="VAY TI&#x1ec0;N - TR&#x1ea2; G&#xd3;P"/>
+    <Property name="title" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; Kho&#x1ea3;n Vay &amp; Tr&#x1ea3; G&#xf3;p"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

@@ -46,7 +46,7 @@ public class GiaoDichJDialog extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Giao Dịch");
+        setTitle("Quản Lý Giao Dịch");
 
         jLabel1.setText("Tài khoản ngân hàng");
 

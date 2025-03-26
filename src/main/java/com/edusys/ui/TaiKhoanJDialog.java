@@ -61,7 +61,7 @@ public class TaiKhoanJDialog extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("TÀI KHOẢN");
+        setTitle("Quản Lý Tài Khoản");
 
         jLabel1.setText("Mã tài khoản:");
 

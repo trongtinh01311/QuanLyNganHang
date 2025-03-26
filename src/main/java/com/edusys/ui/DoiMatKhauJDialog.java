@@ -5,6 +5,11 @@
  */
 package com.edusys.ui;
 
+import com.edusys.dao.KhachHangDAO;
+import com.edusys.dao.NhanVienDAO;
+import com.edusys.utils.Auth;
+import com.edusys.utils.MsgBox;
+
 /**
  *
  * @author bangiahung
@@ -43,7 +48,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         txtMatKhauMoi2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Đổi mật khẩu");
+        setTitle("Đổi Mật Khẩu");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 51));
@@ -122,12 +127,12 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
-        //this.huyBo();
+        this.huyBo();
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnDoiMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiMatKhauActionPerformed
         // TODO add your handling code here:
-        //this.doiMatKhau();
+        this.doiMatKhau();
     }//GEN-LAST:event_btnDoiMatKhauActionPerformed
 
     /**
@@ -190,34 +195,51 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     void init() {
         this.setLocationRelativeTo(null);
     }
-    /*
-    NhanVienDAO dao = new NhanVienDAO();
     
+    NhanVienDAO nvDao = new NhanVienDAO();
+    KhachHangDAO khDao = new KhachHangDAO();
     private void doiMatKhau() {
-        String manv = txtMaNV.getText();
+        String maDangNhap = txtMaNV.getText();
         String matKhau = new String(txtMatKhau.getPassword());
         String matKhauMoi = new String(txtMatKhauMoi.getPassword());
         String matKhauMoi2 = new String(txtMatKhauMoi2.getPassword());
         
-        if(!manv.equalsIgnoreCase(Auth.user.getMaNV())){
-            MsgBox.alert(this, "Sai tên đăng nhập!");
-        }
-        else if(!matKhau.equals(Auth.user.getMatKhau())){
-            MsgBox.alert(this, "Sai mật khẩu!");
-        }
-        else if(!matKhauMoi.equals(matKhauMoi2)){
-            MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
-        }
-        else{
-            Auth.user.setMatKhau(matKhauMoi);
-            dao.update(Auth.user);
-            MsgBox.alert(this, "Đổi mật khẩu thành công!");
+        if (Auth.userNhanVien != null) {
+            // Nếu là nhân viên
+            if (!maDangNhap.equalsIgnoreCase(Auth.userNhanVien.getMaNhanVien())) {
+                MsgBox.alert(this, "Sai tên đăng nhập!");
+            } else if (!matKhau.equals(Auth.userNhanVien.getMatKhau())) {
+                MsgBox.alert(this, "Sai mật khẩu!");
+            } else if (!matKhauMoi.equals(matKhauMoi2)) {
+                MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
+            } else {
+                Auth.userNhanVien.setMatKhau(matKhauMoi);
+                nvDao.update(Auth.userNhanVien);
+                MsgBox.alert(this, "Đổi mật khẩu thành công (Nhân viên)!");
+                this.huyBo();
+            }
+        } else if (Auth.userKhachHang != null) {
+            // Nếu là khách hàng
+            if (!maDangNhap.equalsIgnoreCase(Auth.userKhachHang.getMaKhachHang())) {
+                MsgBox.alert(this, "Sai tên đăng nhập!");
+            } else if (!matKhau.equals(Auth.userKhachHang.getMatKhau())) {
+                MsgBox.alert(this, "Sai mật khẩu!");
+            } else if (!matKhauMoi.equals(matKhauMoi2)) {
+                MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
+            } else {
+                Auth.userKhachHang.setMatKhau(matKhauMoi);
+                khDao.update(Auth.userKhachHang);
+                MsgBox.alert(this, "Đổi mật khẩu thành công (Khách hàng)!");
+                this.huyBo();
+            }
+        } else {
+            MsgBox.alert(this, "Bạn chưa đăng nhập!");
         }
     }
 
     private void huyBo() {
         this.dispose();
-    }*/
+    }
 }
 
 

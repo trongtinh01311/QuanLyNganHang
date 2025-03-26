@@ -5,6 +5,7 @@
 package com.edusys.ui;
 
 import com.edusys.dao.ThongKeDAO;
+import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -76,7 +77,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         btnExportExcelVT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("THỐNG KÊ ");
+        setTitle("Thống Kê");
 
         lblThongKeKhachHang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblThongKeKhachHang.setForeground(new java.awt.Color(51, 51, 255));
@@ -588,20 +589,36 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     void init(){
         this.setLocationRelativeTo(null); 
         
-        this.fillComboBoxNamKH();
-        this.fillComboBoxNamGD();
-        this.fillComboBoxNamTK();
-        this.fillComboBoxNamVT();
-        
-        this.fillTableKhachHang();
-        this.fillTableGiaoDich();
-        this.fillTableTaiKhoan();
-        this.fillTableVayTien();
+        // Kiểm tra quyền người dùng
+        if (Auth.isCustomer()) { 
+            // Nếu là khách hàng, ẩn tất cả các tab thống kê
+            tabs.remove(pnlKhachHang);
+            tabs.remove(pnlGiaoDich);
+            tabs.remove(pnlTaiKhoan);
+            tabs.remove(pnlVayTien);
+            MsgBox.alert(this, "Bạn không có quyền truy cập thống kê!");
+        } else if (Auth.isEmployee()) {
+            // Nếu là nhân viên, hiển thị dữ liệu thống kê
+            this.fillComboBoxNamKH();
+            this.fillComboBoxNamGD();
+            this.fillComboBoxNamTK();
+            this.fillComboBoxNamVT();
+
+            this.fillTableKhachHang();
+            this.fillTableGiaoDich();
+            this.fillTableTaiKhoan();
+            this.fillTableVayTien();
+        } else {
+            // Nếu không phải nhân viên hoặc khách hàng (trường hợp lỗi), đóng form
+            MsgBox.alert(this, "Bạn không có quyền truy cập thống kê!");
+            this.dispose();
+        }
     }
     
     public void selectTab(int index){
         tabs.setSelectedIndex(index);
     }
+    
     //lấy năm
     void fillComboBoxNamKH(){
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboNamKH.getModel();

@@ -5,7 +5,9 @@
  */
 package com.edusys.ui;
 
+import com.edusys.dao.KhachHangDAO;
 import com.edusys.dao.NhanVienDAO;
+import com.edusys.enity.KhachHang;
 import com.edusys.enity.NhanVien;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
@@ -37,7 +39,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         lblTenDangNhap = new javax.swing.JLabel();
-        txtMaNV = new javax.swing.JTextField();
+        txtMaDangNhap = new javax.swing.JTextField();
         txtMatKhau = new javax.swing.JPasswordField();
         btnDangNhap = new javax.swing.JButton();
         lblMatKhau = new javax.swing.JLabel();
@@ -45,7 +47,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Đăng nhập");
+        setTitle("Đăng Nhập");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -55,14 +57,14 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         lblTenDangNhap.setForeground(new java.awt.Color(255, 51, 51));
         lblTenDangNhap.setText("Tên đăng nhập");
 
-        txtMaNV.setText("NV001");
-        txtMaNV.addActionListener(new java.awt.event.ActionListener() {
+        txtMaDangNhap.setText("NV001");
+        txtMaDangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaNVActionPerformed(evt);
+                txtMaDangNhapActionPerformed(evt);
             }
         });
 
-        txtMatKhau.setText("an4321");
+        txtMatKhau.setText("123");
         txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMatKhauActionPerformed(evt);
@@ -111,7 +113,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblMatKhau)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtMaNV)
+                            .addComponent(txtMaDangNhap)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblTenDangNhap)
                                 .addGap(179, 179, 179)))
@@ -126,7 +128,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblTenDangNhap)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtMaDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblMatKhau)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -162,9 +164,9 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         this.ketThuc();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void txtMaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNVActionPerformed
+    private void txtMaDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaDangNhapActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaNVActionPerformed
+    }//GEN-LAST:event_txtMaDangNhapActionPerformed
 
     private void txtMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauActionPerformed
         // TODO add your handling code here:
@@ -220,7 +222,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblTenDangNhap;
-    private javax.swing.JTextField txtMaNV;
+    private javax.swing.JTextField txtMaDangNhap;
     private javax.swing.JPasswordField txtMatKhau;
     // End of variables declaration//GEN-END:variables
 
@@ -228,22 +230,40 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
     }
     
-    NhanVienDAO dao = new NhanVienDAO();
-
+    NhanVienDAO nvDao = new NhanVienDAO();
+    KhachHangDAO khDao = new KhachHangDAO();
     void dangNhap() {
-        String maNV = txtMaNV.getText();
+        String maDangNhap = txtMaDangNhap.getText();
         String matKhau = new String(txtMatKhau.getPassword());
-        NhanVien nhanVien = dao.selectById(maNV);
-        if(nhanVien == null){
-              MsgBox.alert(this, "Sai tên đăng nhập!");
-         }
-         else if(!matKhau.equals(nhanVien.getMatKhau())){
-              MsgBox.alert(this, "Sai mật khẩu!");
-          }
-          else{
-              Auth.user = nhanVien;
-              this.dispose();
-          }
+        
+        // Kiểm tra nhân viên
+        NhanVien nhanVien = nvDao.selectById(maDangNhap);
+        if (nhanVien != null) {
+            if (!matKhau.equals(nhanVien.getMatKhau())) {
+                MsgBox.alert(this, "Sai mật khẩu!");
+            } else {
+                Auth.userNhanVien = nhanVien;
+                MsgBox.alert(this, "Đăng nhập nhân viên thành công!");
+                this.dispose();
+            }
+            return;
+        }
+
+        // Kiểm tra khách hàng
+        KhachHang khachHang = khDao.selectById(maDangNhap);
+        if (khachHang != null) {
+            if (!matKhau.equals(khachHang.getMatKhau())) {
+                MsgBox.alert(this, "Sai mật khẩu!");
+            } else {
+                Auth.userKhachHang = khachHang;
+                MsgBox.alert(this, "Đăng nhập khách hàng thành công!");
+                this.dispose();
+            }
+            return;
+        }
+        
+        // Nếu không tìm thấy tài khoản
+        MsgBox.alert(this, "Sai tên đăng nhập!");
     }
     
     void ketThuc(){

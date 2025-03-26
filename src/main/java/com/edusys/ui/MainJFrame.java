@@ -81,7 +81,7 @@ public class MainJFrame extends javax.swing.JFrame {
         mniGioiThieu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("HỆ THỐNG QUẢN LÝ NGÂN HÀNG");
+        setTitle("Hệ Thống Quản Lý Ngân Hàng");
 
         toolBar.setRollover(true);
 

@@ -11,7 +11,13 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  *
  * @author tinhn
@@ -24,7 +30,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     public ThongKeJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        init();
+        this.init();
     }
 
     /**
@@ -301,6 +307,11 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         lblThongKeGiaoDich1.setText("THỐNG KÊ TÀI KHOẢN");
 
         btnExportExcelTK.setText("Export to Excel");
+        btnExportExcelTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportExcelTKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlTaiKhoanLayout = new javax.swing.GroupLayout(pnlTaiKhoan);
         pnlTaiKhoan.setLayout(pnlTaiKhoanLayout);
@@ -386,6 +397,11 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         });
 
         btnExportExcelVT.setText("Export to Excel");
+        btnExportExcelVT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportExcelVTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlVayTienLayout = new javax.swing.GroupLayout(pnlVayTien);
         pnlVayTien.setLayout(pnlVayTienLayout);
@@ -452,10 +468,12 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
     private void btnExportExcelKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExcelKHActionPerformed
         // TODO add your handling code here:
+        this.exportToExcel(tblThongKeKhachHang);
     }//GEN-LAST:event_btnExportExcelKHActionPerformed
 
     private void btnExportExcelGDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExcelGDActionPerformed
         // TODO add your handling code here:
+        this.exportToExcel(tblThongKeGiaoDich);
     }//GEN-LAST:event_btnExportExcelGDActionPerformed
 
     private void cboThangKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThangKHActionPerformed
@@ -497,6 +515,16 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.fillTableVayTien();
     }//GEN-LAST:event_cboNamVTActionPerformed
+
+    private void btnExportExcelTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExcelTKActionPerformed
+        // TODO add your handling code here:
+        this.exportToExcel(tblThongKeTaiKhoan);
+    }//GEN-LAST:event_btnExportExcelTKActionPerformed
+
+    private void btnExportExcelVTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExcelVTActionPerformed
+        // TODO add your handling code here:
+        this.exportToExcel(tblThongKeVayTien);
+    }//GEN-LAST:event_btnExportExcelVTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -592,12 +620,12 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         // Kiểm tra quyền người dùng
         if (Auth.isCustomer()) { 
             // Nếu là khách hàng, ẩn tất cả các tab thống kê
+            MsgBox.alert(this, "Bạn không có quyền truy cập thống kê!");
             tabs.remove(pnlKhachHang);
             tabs.remove(pnlGiaoDich);
             tabs.remove(pnlTaiKhoan);
             tabs.remove(pnlVayTien);
-            MsgBox.alert(this, "Bạn không có quyền truy cập thống kê!");
-        } else if (Auth.isEmployee()) {
+        } else {
             // Nếu là nhân viên, hiển thị dữ liệu thống kê
             this.fillComboBoxNamKH();
             this.fillComboBoxNamGD();
@@ -608,10 +636,6 @@ public class ThongKeJDialog extends javax.swing.JDialog {
             this.fillTableGiaoDich();
             this.fillTableTaiKhoan();
             this.fillTableVayTien();
-        } else {
-            // Nếu không phải nhân viên hoặc khách hàng (trường hợp lỗi), đóng form
-            MsgBox.alert(this, "Bạn không có quyền truy cập thống kê!");
-            this.dispose();
         }
     }
     
@@ -713,6 +737,70 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         List<Object[]> list = dao.getThongKeVayTien(thang, nam);
         for(Object[] row : list){
             model.addRow(row);
+        }
+    }
+    
+    void exportToExcel(JTable table) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn Vị Trí Lưu File Excel!");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+
+            // Đảm bảo file có đuôi .xlsx
+            if (!filePath.toLowerCase().endsWith(".xlsx")) {
+                filePath += ".xlsx";
+            }
+
+            try (Workbook workbook = new XSSFWorkbook()) {
+                Sheet sheet = workbook.createSheet("Data");
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                int columnCount = model.getColumnCount();
+                int rowCount = model.getRowCount();
+
+                // Ghi tiêu đề cột
+                Row headerRow = sheet.createRow(0);
+                for (int col = 0; col < columnCount; col++) {
+                    Cell cell = headerRow.createCell(col);
+                    String columnName = model.getColumnName(col);
+                    cell.setCellValue(columnName);
+                }
+
+
+                // Ghi dữ liệu từng dòng
+                for (int row = 0; row < rowCount; row++) {
+                    Row excelRow = sheet.createRow(row + 1);
+                    for (int col = 0; col < columnCount; col++) {
+                        Object cellValue = model.getValueAt(row, col);
+                        Cell cell = excelRow.createCell(col);
+                        if (cellValue != null) {
+                            cell.setCellValue(cellValue.toString());
+                        } else {
+                            cell.setCellValue("");
+                        }
+                    }
+                }
+
+                
+                // Tự động điều chỉnh độ rộng cột
+                for (int col = 0; col < model.getColumnCount(); col++) {
+                    sheet.autoSizeColumn(col);
+                }
+                
+                // Lưu file
+                try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                    workbook.write(fileOut);
+                }
+                
+                MsgBox.alert(this, "Xuất Excel thành công!\nFile: " + filePath);
+            } catch (IOException e) {
+                MsgBox.alert(this, "Lỗi khi xuất file Excel: " + e.getMessage());
+            }
+        } else {
+            MsgBox.alert(this, "Bạn đã hủy lưu file Excel!");
         }
     }
 }

@@ -61,6 +61,7 @@ public class MainJFrame extends javax.swing.JFrame {
         mniDoiMatKhau = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mniKetThuc = new javax.swing.JMenuItem();
+        mniThongTin = new javax.swing.JMenuItem();
         mnuQuanLy = new javax.swing.JMenu();
         mniKhachHang = new javax.swing.JMenuItem();
         mniTaiKhoan = new javax.swing.JMenuItem();
@@ -222,7 +223,7 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuHeThong.add(mniDangXuat);
         mnuHeThong.add(jSeparator2);
 
-        mniDoiMatKhau.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniDoiMatKhau.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniDoiMatKhau.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNganHang\\GiaoDichNganHang\\src\\main\\resources\\icon\\Refresh.png")); // NOI18N
         mniDoiMatKhau.setText("Đổi mật khẩu");
         mniDoiMatKhau.addActionListener(new java.awt.event.ActionListener() {
@@ -242,6 +243,16 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
         mnuHeThong.add(mniKetThuc);
+
+        mniThongTin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
+        mniThongTin.setIcon(new javax.swing.ImageIcon("D:\\QuanLyNganHang\\GiaoDichNganHang\\src\\main\\resources\\icon\\trogiup.png")); // NOI18N
+        mniThongTin.setText("Thông tin");
+        mniThongTin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniThongTinActionPerformed(evt);
+            }
+        });
+        mnuHeThong.add(mniThongTin);
 
         menuBar.add(mnuHeThong);
 
@@ -512,6 +523,11 @@ public class MainJFrame extends javax.swing.JFrame {
         this.openVayTien(1);
     }//GEN-LAST:event_mniTraGopActionPerformed
 
+    private void mniThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThongTinActionPerformed
+        // TODO add your handling code here:
+        this.openThongTin();
+    }//GEN-LAST:event_mniThongTinActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -581,6 +597,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniThongKeKhachHang;
     private javax.swing.JMenuItem mniThongKeTaiKhoan;
     private javax.swing.JMenuItem mniThongKeVayTien;
+    private javax.swing.JMenuItem mniThongTin;
     private javax.swing.JMenuItem mniTraGop;
     private javax.swing.JMenuItem mniVayTien;
     private javax.swing.JMenu mnuHeThong;
@@ -701,6 +718,15 @@ public class MainJFrame extends javax.swing.JFrame {
             Desktop.getDesktop().browse(new File("src/main/resources/help/index.html").toURI()); //chỗ chứa đường dẫn trang web
         } catch (IOException e) {
             MsgBox.alert(this, "Không tìm thấy file đường dẫn");
+        }
+    }
+    
+    void openThongTin(){
+        if(Auth.isLogin()){
+            new ThongTinJDialog(this, true).setVisible(true);
+        }
+        else{
+            MsgBox.alert(this, "Vui Lòng đăng nhập!");
         }
     }
 }

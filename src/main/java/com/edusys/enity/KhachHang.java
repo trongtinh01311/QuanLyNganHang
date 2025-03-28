@@ -22,7 +22,7 @@ public class KhachHang {
     private String matKhau;
     private String hinh;
     private String maNhanVien;
-    private Date ngayTao;
+    private Date ngayTao = new Date();
 
     public KhachHang() {
     }

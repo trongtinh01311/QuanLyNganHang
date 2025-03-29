@@ -692,17 +692,16 @@ public class MainJFrame extends javax.swing.JFrame {
             MsgBox.alert(this, "Vui Lòng đăng nhập!");
         }
     }
-    //chỉ có nhân viên mới xem đc thống ke, khách hàng thì ko xem đc
+
     void openThongKe(int index){
         if(Auth.isLogin()){
-            if(index == 0 && !Auth.isEmployee()){
-                MsgBox.alert(this, "Bạn không có quyền xem thông tin thống kê");
+            if (Auth.isCustomer()) { 
+                MsgBox.alert(this, "Bạn không có quyền xem thông tin thống kê!");
+                return;
             }
-            else{
-                ThongKeJDialog tkwin = new ThongKeJDialog(this, true);           
-                tkwin.selectTab(index);
-                tkwin.setVisible(true);
-            }
+            ThongKeJDialog tkwin = new ThongKeJDialog(this, true);           
+            tkwin.selectTab(index);
+            tkwin.setVisible(true);
         }
         else{
             MsgBox.alert(this, "Vui lòng đăng nhập");

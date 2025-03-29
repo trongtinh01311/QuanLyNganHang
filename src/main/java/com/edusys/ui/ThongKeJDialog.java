@@ -614,30 +614,28 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     ThongKeDAO dao = new ThongKeDAO();
-    void init(){
-        this.setLocationRelativeTo(null); 
-        
-        // Kiểm tra quyền người dùng
-        if (Auth.isCustomer()) { 
-            // Nếu là khách hàng, ẩn tất cả các tab thống kê
-            MsgBox.alert(this, "Bạn không có quyền truy cập thống kê!");
-            tabs.remove(pnlKhachHang);
-            tabs.remove(pnlGiaoDich);
-            tabs.remove(pnlTaiKhoan);
-            tabs.remove(pnlVayTien);
-        } else {
-            // Nếu là nhân viên, hiển thị dữ liệu thống kê
-            this.fillComboBoxNamKH();
-            this.fillComboBoxNamGD();
-            this.fillComboBoxNamTK();
-            this.fillComboBoxNamVT();
+    void init() {
+        this.setLocationRelativeTo(null);
 
-            this.fillTableKhachHang();
-            this.fillTableGiaoDich();
-            this.fillTableTaiKhoan();
-            this.fillTableVayTien();
+        if (Auth.isCustomer()) { 
+            MsgBox.alert(this, "Bạn không có quyền xem thông tin thống kê!");
+            this.setVisible(false);
+            this.dispose(); 
+            return;
         }
+
+        // Nếu là nhân viên, hiển thị dữ liệu thống kê
+        this.fillComboBoxNamKH();
+        this.fillComboBoxNamGD();
+        this.fillComboBoxNamTK();
+        this.fillComboBoxNamVT();
+
+        this.fillTableKhachHang();
+        this.fillTableGiaoDich();
+        this.fillTableTaiKhoan();
+        this.fillTableVayTien();
     }
+
     
     public void selectTab(int index){
         tabs.setSelectedIndex(index);
@@ -747,7 +745,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         int userSelection = fileChooser.showSaveDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
+            File fileToSave = fileChooser.getSelectedFile();         
             String filePath = fileToSave.getAbsolutePath();
 
             // Đảm bảo file có đuôi .xlsx
